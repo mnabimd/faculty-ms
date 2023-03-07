@@ -61,13 +61,16 @@
     "http-status": "^1.4.0",
     "joi": "^17.3.0",
     "jsonwebtoken": "^8.5.1",
+    "mariadb": "^3.1.0",
     "moment": "^2.24.0",
     "mongoose": "^5.7.7",
     "morgan": "^1.9.1",
+    "mysql2": "^3.2.0",
     "nodemailer": "^6.3.1",
     "passport": "^0.4.0",
     "passport-jwt": "^4.0.0",
     "pm2": "^5.1.0",
+    "sequelize": "^6.29.1",
     "swagger-jsdoc": "^6.0.8",
     "swagger-ui-express": "^4.1.6",
     "validator": "^13.0.0",
@@ -90,6 +93,7 @@
     "node-mocks-http": "^1.8.0",
     "nodemon": "^2.0.0",
     "prettier": "^2.0.5",
+    "sequelize-cli": "^6.6.0",
     "supertest": "^6.0.1"
   }
 }
