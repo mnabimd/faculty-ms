@@ -21,6 +21,9 @@ if (config.env !== 'test') {
   app.use(morgan.errorHandler);
 }
 
+// Connect database
+const db = require('../models/index');
+
 // set security HTTP headers
 app.use(helmet());
 

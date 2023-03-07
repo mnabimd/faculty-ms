@@ -1,5 +1,7 @@
-'use strict';
 const { Model } = require('sequelize');
+
+const { tokenTypes } = require('../src/config/tokens');
+
 module.exports = (sequelize, DataTypes) => {
   class Token extends Model {
     /**
@@ -13,15 +15,43 @@ module.exports = (sequelize, DataTypes) => {
   }
   Token.init(
     {
+      id: {
+        allowNull: false,
+        primaryKey: true,
+        type: DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV1,
+      },
       token: DataTypes.STRING,
-      user: DataTypes.STRING,
-      type: DataTypes.STRING,
-      expires: DataTypes.DATE,
-      blacklisted: DataTypes.BOOLEAN,
+      user: {
+        type: DataTypes.UUID,
+        required: true,
+        references: {
+          model: 'Users',
+          key: 'id',
+        },
+        onDelete: 'cascade',
+        onUpdate: 'cascade',
+      },
+      type: {
+        type: DataTypes.STRING,
+        required: true,
+        validate: {
+          isIn: [tokenTypes.REFRESH, tokenTypes.RESET_PASSWORD],
+        },
+      },
+      expires: {
+        type: DataTypes.DATE,
+        required: true,
+      },
+      blacklisted: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
+      },
     },
     {
       sequelize,
       modelName: 'Token',
+      timestamps: true,
     }
   );
   return Token;

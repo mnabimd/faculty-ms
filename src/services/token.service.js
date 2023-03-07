@@ -4,6 +4,7 @@ const httpStatus = require('http-status');
 const config = require('../config/config');
 const userService = require('./user.service');
 const { Token } = require('../models');
+const { Token: theToken } = require('../../models');
 const ApiError = require('../utils/ApiError');
 const { tokenTypes } = require('../config/tokens');
 
@@ -35,7 +36,7 @@ const generateToken = (userId, expires, type, secret = config.jwt.secret) => {
  * @returns {Promise<Token>}
  */
 const saveToken = async (token, userId, expires, type, blacklisted = false) => {
-  const tokenDoc = await Token.create({
+  const tokenDoc = await theToken.create({
     token,
     user: userId,
     expires: expires.toDate(),

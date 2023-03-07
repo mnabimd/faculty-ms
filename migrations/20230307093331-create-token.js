@@ -1,40 +1,49 @@
-'use strict';
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable('Tokens', {
       id: {
         allowNull: false,
-        autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.UUID,
+        defaultValue: Sequelize.UUIDV1,
       },
       token: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       user: {
-        type: Sequelize.STRING
+        type: Sequelize.UUID,
+        required: true,
+        references: {
+          model: 'Users',
+          key: 'id',
+        },
+        onDelete: 'cascade',
+        onUpdate: 'cascade',
       },
       type: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        required: true,
       },
       expires: {
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        required: true,
       },
       blacklisted: {
-        type: Sequelize.BOOLEAN
+        type: Sequelize.BOOLEAN,
+        defaultValue: false,
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
-      }
+        type: Sequelize.DATE,
+      },
     });
   },
   async down(queryInterface, Sequelize) {
     await queryInterface.dropTable('Tokens');
-  }
+  },
 };
