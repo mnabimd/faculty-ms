@@ -2,7 +2,7 @@ const httpStatus = require('http-status');
 const ApiError = require('../utils/ApiError');
 
 // Sequelize Models
-const { User } = require('../../models');
+const { User } = require('../models');
 
 /**
  * Create a user

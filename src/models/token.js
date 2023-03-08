@@ -1,6 +1,6 @@
 const { Model } = require('sequelize');
 
-const { tokenTypes } = require('../src/config/tokens');
+const { tokenTypes } = require('../config/tokens');
 
 module.exports = (sequelize, DataTypes) => {
   class Token extends Model {

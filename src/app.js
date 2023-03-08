@@ -21,10 +21,6 @@ if (config.env !== 'test') {
   app.use(morgan.errorHandler);
 }
 
-// Connect database
-const db = require('../models/index');
-db.sequelize.sync();
-
 // set security HTTP headers
 app.use(helmet());
 

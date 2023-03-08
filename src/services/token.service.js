@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 const moment = require('moment');
 const config = require('../config/config');
-const { Token } = require('../../models');
+const { Token } = require('../models');
 const { tokenTypes } = require('../config/tokens');
 
 /**
