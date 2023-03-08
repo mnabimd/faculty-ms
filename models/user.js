@@ -1,6 +1,7 @@
 const { Model } = require('sequelize');
 
 const validator = require('validator');
+const bcrypt = require('bcryptjs');
 const { roles } = require('../src/config/roles');
 
 module.exports = (sequelize, DataTypes) => {
@@ -12,6 +13,18 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+    }
+
+    // Custom instance methods
+    async isPasswordMatch(password) {
+      const user = this;
+      return bcrypt.compare(password, user.password);
+    }
+
+    static async isEmailTaken(email) {
+      const emailExists = await this.findOne({ where: { email } });
+
+      return !!emailExists;
     }
   }
   User.init(
@@ -63,17 +76,14 @@ module.exports = (sequelize, DataTypes) => {
     }
   );
 
-  // Schema Hooks
+  // Schema Hooks--------------------------------------------------
 
   User.beforeCreate('beforeUserCreation', (user) => {
     user.email = user.email.toLowerCase();
   });
 
-  // Hooks with custom names
-  User.addHook('beforeCreate', 'isEmailTaken', (user) => {
-    const emailExists = User.findOne({ email: user.email });
-
-    return !!emailExists;
+  User.beforeSave(async (user) => {
+    user.password = await bcrypt.hash(user.password, 8);
   });
 
   return User;
