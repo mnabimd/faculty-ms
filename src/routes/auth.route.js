@@ -11,7 +11,7 @@ router.post('/login', validate(authValidation.login), authController.login);
 router.post('/logout', validate(authValidation.logout), authController.logout);
 router.post('/refresh-tokens', validate(authValidation.refreshTokens), authController.refreshTokens);
 // router.post('/forgot-password', validate(authValidation.forgotPassword), authController.forgotPassword);
-router.post('/reset-password', validate(authValidation.resetPassword), authController.resetPassword);
+// router.post('/reset-password', validate(authValidation.resetPassword), authController.resetPassword);
 // router.post('/send-verification-email', auth(), authController.sendVerificationEmail);
 // router.post('/verify-email', validate(authValidation.verifyEmail), authController.verifyEmail);
 
@@ -176,45 +176,45 @@ module.exports = router;
  *         $ref: '#/components/responses/Unauthorized'
  */
 
-/**
- * @swagger
- * /auth/reset-password:
- *   post:
- *     summary: Reset password
- *     tags: [Auth]
- *     parameters:
- *       - in: query
- *         name: token
- *         required: true
- *         schema:
- *           type: string
- *         description: The reset password token
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             required:
- *               - password
- *             properties:
- *               password:
- *                 type: string
- *                 format: password
- *                 minLength: 8
- *                 description: At least one number and one letter
- *             example:
- *               password: password1
- *     responses:
- *       "204":
- *         description: No content
- *       "401":
- *         description: Password reset failed
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Error'
- *             example:
- *               code: 401
- *               message: Password reset failed
- */
+// /**
+//  * @swagger
+//  * /auth/reset-password:
+//  *   post:
+//  *     summary: Reset password
+//  *     tags: [Auth]
+//  *     parameters:
+//  *       - in: query
+//  *         name: token
+//  *         required: true
+//  *         schema:
+//  *           type: string
+//  *         description: The reset password token
+//  *     requestBody:
+//  *       required: true
+//  *       content:
+//  *         application/json:
+//  *           schema:
+//  *             type: object
+//  *             required:
+//  *               - password
+//  *             properties:
+//  *               password:
+//  *                 type: string
+//  *                 format: password
+//  *                 minLength: 8
+//  *                 description: At least one number and one letter
+//  *             example:
+//  *               password: password1
+//  *     responses:
+//  *       "204":
+//  *         description: No content
+//  *       "401":
+//  *         description: Password reset failed
+//  *         content:
+//  *           application/json:
+//  *             schema:
+//  *               $ref: '#/components/schemas/Error'
+//  *             example:
+//  *               code: 401
+//  *               message: Password reset failed
+//  */

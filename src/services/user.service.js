@@ -1,9 +1,8 @@
 const httpStatus = require('http-status');
-const { User } = require('../models');
 const ApiError = require('../utils/ApiError');
 
 // Sequelize Models
-const { User: theUser } = require('../../models');
+const { User } = require('../../models');
 
 /**
  * Create a user
@@ -11,10 +10,10 @@ const { User: theUser } = require('../../models');
  * @returns {Promise<User>}
  */
 const createUser = async (userBody) => {
-  if (await theUser.isEmailTaken(userBody.email)) {
+  if (await User.isEmailTaken(userBody.email)) {
     throw new ApiError(httpStatus.BAD_REQUEST, 'Email already taken');
   }
-  return theUser.create(userBody);
+  return User.create(userBody);
 };
 
 /**
@@ -37,7 +36,7 @@ const queryUsers = async (filter, options) => {
  * @returns {Promise<User>}
  */
 const getUserById = async (id) => {
-  return theUser.findOne({ where: { id } });
+  return User.findOne({ where: { id } });
 };
 
 /**
@@ -46,7 +45,7 @@ const getUserById = async (id) => {
  * @returns {Promise<User>}
  */
 const getUserByEmail = async (email) => {
-  return theUser.findOne({ where: { email } });
+  return User.findOne({ where: { email } });
 };
 
 /**
