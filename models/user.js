@@ -69,5 +69,12 @@ module.exports = (sequelize, DataTypes) => {
     user.email = user.email.toLowerCase();
   });
 
+  // Hooks with custom names
+  User.addHook('beforeCreate', 'isEmailTaken', (user) => {
+    const emailExists = User.findOne({ email: user.email });
+
+    return !!emailExists;
+  });
+
   return User;
 };

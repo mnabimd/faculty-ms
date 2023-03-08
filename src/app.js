@@ -23,6 +23,7 @@ if (config.env !== 'test') {
 
 // Connect database
 const db = require('../models/index');
+db.sequelize.sync();
 
 // set security HTTP headers
 app.use(helmet());
