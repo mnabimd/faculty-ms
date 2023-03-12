@@ -1,6 +1,12 @@
-version: '3'
+version: '3.8'
 
 services:
-  node-app:
-    container_name: node-app-test
-    command: yarn test
+  node-api:
+    container_name: faculty-ms-api-test
+    command: npm run start
+  database:
+    container_name: faculty-ms-database-test
+    environment:
+      MYSQL_ROOT_PASSWORD: admin
+      MYSQL_DATABASE: faculty-ms-test
+      MARIADB_DATABASE: faculty-ms-test

@@ -1,32 +1,38 @@
-version: '3'
+version: '3.8'
 
 services:
-  node-app:
-    build: .
-    image: node-app
+  database:
+    image: mariadb:10.7
+    ports:
+      - '3307:3307'
+    networks:
+      - node-network
+    volumes:
+      - maria-data:/data/db
+    healthcheck:
+      test: ['CMD', 'mysqladmin', 'ping', '-h', 'localhost', '-uroot', '-padmin']
+      interval: 5s
+      retries: 10
     environment:
-      - MONGODB_URL=mongodb://mongodb:27017/node-boilerplate
+      MYSQL_TCP_PORT: 3307
+  node-api:
+    build: .
+    image: facluty-ms
     ports:
-      - '3000:3000'
+      - '4000:4000'
+    volumes:
+      - .:/app
+      - /app/node_modules
+    networks:
+      - node-network
     depends_on:
-      - mongodb
-    volumes:
-      - .:/usr/src/node-app
-    networks:
-      - node-network
-
-  mongodb:
-    image: mongo:4.2.1-bionic
-    ports:
-      - '27017:27017'
-    volumes:
-      - dbdata:/data/db
-    networks:
-      - node-network
-
+      database:
+        condition: service_healthy
+    links:
+      - database
 volumes:
-  dbdata:
-
+  maria-data:
+    driver: local
 networks:
   node-network:
     driver: bridge

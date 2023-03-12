@@ -10,6 +10,15 @@ module.exports = {
     dialect: mariadb.development.dialect,
     logging: JSON.parse(mariadb.development.logging) || false,
   },
+  test: {
+    username: mariadb.test.user,
+    password: mariadb.test.pass,
+    database: mariadb.test.name,
+    port: mariadb.test.port,
+    host: mariadb.test.host,
+    dialect: mariadb.test.dialect,
+    logging: JSON.parse(mariadb.test.logging) || false,
+  },
   production: {
     username: mariadb.production.user,
     password: mariadb.production.pass,

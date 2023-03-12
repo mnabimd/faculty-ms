@@ -1,15 +1,14 @@
-FROM node:alpine
+FROM node:18.15-alpine3.16
 
-RUN mkdir -p /usr/src/node-app && chown -R node:node /usr/src/node-app
+RUN npm install nodemon -g
 
-WORKDIR /usr/src/node-app
+WORKDIR /app
 
-COPY package.json yarn.lock ./
+COPY package.json .
 
-USER node
+RUN npm install
 
-RUN yarn install --pure-lockfile
-
-COPY --chown=node:node . .
+COPY . .
 
 EXPOSE 3000
+# required for docker desktop port mapping

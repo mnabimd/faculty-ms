@@ -1,6 +1,12 @@
-version: '3'
+version: '3.8'
 
 services:
-  node-app:
-    container_name: node-app-dev
-    command: yarn dev -L
+  node-api:
+    container_name: faculty-ms-api-dev
+    command: npm run dev
+  database:
+    container_name: faculty-ms-database-dev
+    environment:
+      MYSQL_ROOT_PASSWORD: admin
+      MYSQL_DATABASE: faculty-ms-dev
+      MARIADB_DATABASE: faculty-ms-dev

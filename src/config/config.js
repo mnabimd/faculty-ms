@@ -54,6 +54,15 @@ module.exports = {
       pass: envVars.DB_DEV_PASS,
       logging: envVars.DB_DEV_LOGS,
     },
+    test: {
+      port: envVars.DB_TEST_PORT,
+      host: envVars.DB_TEST_HOST,
+      dialect: envVars.DB_TEST_DIALECT,
+      name: envVars.DB_TEST_NAME,
+      user: envVars.DB_TEST_USER,
+      pass: envVars.DB_TEST_PASS,
+      logging: envVars.DB_TEST_LOGS,
+    },
     production: {
       port: envVars.DB_PORT,
       host: envVars.DB_HOST,

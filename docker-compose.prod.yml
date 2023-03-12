@@ -1,6 +1,13 @@
-version: '3'
+version: '3.8'
 
 services:
-  node-app:
-    container_name: node-app-prod
-    command: yarn start
+  node-api:
+    image: faculty-ms-prod
+    container_name: faculty-ms-api-prod
+    command: npm run start
+  database:
+    container_name: faculty-ms-database-prod
+    environment:
+      MYSQL_ROOT_PASSWORD: admin
+      MYSQL_DATABASE: faculty-ms
+      MARIADB_DATABASE: faculty-ms
