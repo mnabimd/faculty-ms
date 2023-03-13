@@ -7,6 +7,7 @@ dotenv.config({ path: path.join(__dirname, '../../.env') });
 const envVarsSchema = Joi.object()
   .keys({
     NODE_ENV: Joi.string().valid('production', 'development', 'test').required(),
+    DOCKER_ENV: Joi.string().valid('true', 'false').default(false),
     PORT: Joi.number().default(3000),
     DB_NAME: Joi.string().required().description('database name is required'),
     DB_USER: Joi.string().required().description('database username is required'),
@@ -14,11 +15,15 @@ const envVarsSchema = Joi.object()
     DB_HOST: Joi.string().required().description('database host is required'),
     DB_PORT: Joi.string().required().description('database port number is required'),
     DB_DIALECT: Joi.string().required().description('sequelize dialect is required'),
+    DB_DOCKER_HOST: Joi.string().required().description('docker database host is required'),
+    DB_DOCKER_PORT: Joi.string().required().description('docker database port number is required'),
     DB_DEV_NAME: Joi.string().required().description('development database name is required'),
     DB_DEV_USER: Joi.string().required().description('development database username is required'),
     DB_DEV_PASS: Joi.string().required().description('development database password is required'),
     DB_DEV_HOST: Joi.string().required().description('development database host is required'),
     DB_DEV_PORT: Joi.string().required().description('development database port number is required'),
+    DB_DEV_DOCKER_HOST: Joi.string().required().description('development docker database host is required'),
+    DB_DEV_DOCKER_PORT: Joi.string().required().description('development docker database port number is required'),
     DB_DEV_DIALECT: Joi.string().required().description('development sequelize dialect is required'),
     JWT_SECRET: Joi.string().required().description('JWT secret key'),
     JWT_ACCESS_EXPIRATION_MINUTES: Joi.number().default(30).description('minutes after which access tokens expire'),
@@ -37,6 +42,7 @@ if (error) {
 
 module.exports = {
   env: envVars.NODE_ENV,
+  docker: envVars.DOCKER_ENV,
   port: envVars.PORT,
   jwt: {
     secret: envVars.JWT_SECRET,
@@ -48,24 +54,19 @@ module.exports = {
     development: {
       port: envVars.DB_DEV_PORT,
       host: envVars.DB_DEV_HOST,
+      portDocker: envVars.DB_DEV_DOCKER_PORT,
+      hostDocker: envVars.DB_DEV_DOCKER_HOST,
       dialect: envVars.DB_DEV_DIALECT,
       name: envVars.DB_DEV_NAME,
       user: envVars.DB_DEV_USER,
       pass: envVars.DB_DEV_PASS,
       logging: envVars.DB_DEV_LOGS,
     },
-    test: {
-      port: envVars.DB_TEST_PORT,
-      host: envVars.DB_TEST_HOST,
-      dialect: envVars.DB_TEST_DIALECT,
-      name: envVars.DB_TEST_NAME,
-      user: envVars.DB_TEST_USER,
-      pass: envVars.DB_TEST_PASS,
-      logging: envVars.DB_TEST_LOGS,
-    },
     production: {
       port: envVars.DB_PORT,
       host: envVars.DB_HOST,
+      portDocker: envVars.DB_DOCKER_PORT,
+      hostDocker: envVars.DB_DOCKER_HOST,
       dialect: envVars.DB_DIALECT,
       name: envVars.DB_NAME,
       user: envVars.DB_USER,

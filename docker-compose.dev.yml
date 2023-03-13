@@ -4,9 +4,14 @@ services:
   node-api:
     container_name: faculty-ms-api-dev
     command: npm run dev
+    environment:
+      - DOCKER_ENV=true
   database:
     container_name: faculty-ms-database-dev
+    ports:
+      - '${DB_DEV_DOCKER_PORT}:${DB_DEV_DOCKER_PORT}'
     environment:
       MYSQL_ROOT_PASSWORD: admin
       MYSQL_DATABASE: faculty-ms-dev
       MARIADB_DATABASE: faculty-ms-dev
+      MYSQL_TCP_PORT: ${DB_DEV_DOCKER_PORT}

@@ -5,9 +5,14 @@ services:
     image: faculty-ms-prod
     container_name: faculty-ms-api-prod
     command: npm run start
+    environment:
+      - DOCKER_ENV=true
   database:
     container_name: faculty-ms-database-prod
+    ports:
+      - '${DB_DOCKER_PORT}:${DB_DOCKER_PORT}'
     environment:
       MYSQL_ROOT_PASSWORD: admin
       MYSQL_DATABASE: faculty-ms
       MARIADB_DATABASE: faculty-ms
+      MYSQL_TCP_PORT: ${DB_DOCKER_PORT}

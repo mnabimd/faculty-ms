@@ -3,8 +3,6 @@ version: '3.8'
 services:
   database:
     image: mariadb:10.7
-    ports:
-      - '3307:3307'
     networks:
       - node-network
     volumes:
@@ -13,13 +11,12 @@ services:
       test: ['CMD', 'mysqladmin', 'ping', '-h', 'localhost', '-uroot', '-padmin']
       interval: 5s
       retries: 10
-    environment:
-      MYSQL_TCP_PORT: 3307
+    env_file: .env
   node-api:
     build: .
-    image: facluty-ms
+    image: faculty-ms
     ports:
-      - '4000:4000'
+      - '${PORT}:${PORT}'
     volumes:
       - .:/app
       - /app/node_modules
