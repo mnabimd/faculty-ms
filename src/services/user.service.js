@@ -82,6 +82,26 @@ const deleteUserById = async (userId) => {
   return user;
 };
 
+
+/**
+ * Verify Email and Password
+ * @param {Object} User
+ * @param {password} string
+ * @returns {Promise<Object>}
+ */
+const verifyEmailAndPassword = async (reqUser, password) => {
+  return reqUser.isPasswordMatch(password);
+};
+
+/**
+ * update user
+ * @param {Object} userBody
+ * @returns {Promise<Object>}
+ */
+const updateUser = (userBody) => {
+  return userBody.save(userBody);
+};
+
 module.exports = {
   createUser,
   queryUsers,
@@ -89,4 +109,6 @@ module.exports = {
   getUserByEmail,
   updateUserById,
   deleteUserById,
+  verifyEmailAndPassword,
+  updateUser,
 };

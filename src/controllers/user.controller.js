@@ -35,10 +35,20 @@ const deleteUser = catchAsync(async (req, res) => {
   res.status(httpStatus.NO_CONTENT).send();
 });
 
+const changePassword = catchAsync(async (req, res) => {
+  const doMatch = await userService.verifyEmailAndPassword(req.user, req.body.currentPassword);
+  if (!doMatch) throw new ApiError(httpStatus.UNAUTHORIZED, 'incorrect password');
+  req.user.password = req.body.newPassword;
+  console.log(req.user);
+  const results = await userService.updateUser(req.user);
+  return res.status(httpStatus.ACCEPTED).send(results);
+});
+
 module.exports = {
   createUser,
   getUsers,
   getUser,
   updateUser,
   deleteUser,
+  changePassword,
 };

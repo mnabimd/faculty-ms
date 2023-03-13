@@ -45,10 +45,24 @@ const deleteUser = {
   }),
 };
 
+const changePassword = {
+  params: Joi.object().keys({
+    userId: Joi.required(),
+  }),
+  body: Joi.object().keys({
+    currentPassword: Joi.string().required().custom(password),
+    newPassword: Joi.string().required().custom(password),
+    confirmPassword: Joi.string().required().valid(Joi.ref('newPassword')).custom(password)
+      .messages({ 'any.only': 'the new password and the confirm password must be same' }),
+  }),
+};
+
+
 module.exports = {
   createUser,
   getUsers,
   getUser,
   updateUser,
   deleteUser,
+  changePassword,
 };
