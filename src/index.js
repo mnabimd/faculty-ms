@@ -38,5 +38,3 @@ process.on('SIGTERM', () => {
     server.close();
   }
 });
-
-console.log(process.env.DOCKER_ENV);
