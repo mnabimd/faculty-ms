@@ -22,8 +22,8 @@
     "lint:fix": "eslint . --fix",
     "prettier": "prettier --check **/*.js",
     "prettier:fix": "prettier --write **/*.js",
-    "docker:start": "docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d",
-    "docker:dev": "docker-compose -f docker-compose.yml -f docker-compose.dev.yml up"
+    "docker:start": "docker-compose -f docker-compose.yml -f docker-compose.prod.yml -p faculty-ms up -d",
+    "docker:dev": "docker-compose -f docker-compose.yml -f docker-compose.dev.yml -p faculty-ms-dev up"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",

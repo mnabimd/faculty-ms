@@ -5,14 +5,10 @@ services:
     image: faculty-ms-prod
     container_name: faculty-ms-api-prod
     command: npm run start
-    environment:
-      - DOCKER_ENV=true
   database:
-    container_name: faculty-ms-database-prod
-    ports:
-      - '${DB_DOCKER_PORT}:${DB_DOCKER_PORT}'
+    container_name: faculty-ms-db-prod
     environment:
-      MYSQL_ROOT_PASSWORD: admin
-      MYSQL_DATABASE: faculty-ms
-      MARIADB_DATABASE: faculty-ms
-      MYSQL_TCP_PORT: ${DB_DOCKER_PORT}
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_ROOT_PASSWORD: ${DB_PASS}
+      # MYSQL_USER: ${DB_USER} :- If the value is root, then
+      # this will cause problem as its already created @ init of db
