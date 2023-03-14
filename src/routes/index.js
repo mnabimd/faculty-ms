@@ -30,7 +30,8 @@ defaultRoutes.forEach((route) => {
 });
 
 /* istanbul ignore next */
-if (config.env === 'development') {
+// To close the routes for production, simply remove the boolean value
+if (config.env === 'development' || true) {
   devRoutes.forEach((route) => {
     router.use(route.path, route.route);
   });
