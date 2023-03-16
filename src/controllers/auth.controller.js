@@ -1,6 +1,7 @@
 const httpStatus = require('http-status');
 const catchAsync = require('../utils/catchAsync');
 const { authService, userService, tokenService } = require('../services');
+const ApiError = require('../utils/ApiError');
 
 const register = catchAsync(async (req, res) => {
   const user = await userService.createUser(req.body);
@@ -30,10 +31,19 @@ const resetPassword = catchAsync(async (req, res) => {
   res.status(httpStatus.NO_CONTENT).send();
 });
 
+const changePassword = catchAsync(async (req, res) => {
+  const doMatch = await userService.verifyEmailAndPassword(req.user, req.body.currentPassword);
+  if (!doMatch) throw new ApiError(httpStatus.UNAUTHORIZED, 'incorrect password');
+  req.user.password = req.body.newPassword;
+  const results = await userService.updateUser(req.user);
+  return res.status(httpStatus.ACCEPTED).send(results);
+});
+
 module.exports = {
   register,
   login,
   logout,
   refreshTokens,
   resetPassword,
+  changePassword,
 };

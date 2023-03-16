@@ -1,0 +1,44 @@
+/**
+ * @swagger
+ * /{userId}/changePassword:
+ *     post:
+ *      summary: Change Password
+ *      description: Change your account password
+ *      tags: [Users]
+ *      security:
+ *        - bearerAuth: []
+ *      requestBody:
+ *        required: true
+ *        content:
+ *          application/json:
+ *            schema:
+ *              type: object
+ *              required:
+ *                - oldPassword
+ *                - newPassword
+ *                - newPasswordConfirm
+ *              properties:
+ *                oldPassword:
+ *                  type: string
+ *                newPassword:
+ *                  type: string
+ *                newPasswordConfirm:
+ *                  type: string
+ *             example:
+ *               oldPassword: password1
+ *               newPassword: password2
+ *               newPasswordConfirm: password2
+ *     responses:
+ *       "201":
+ *         description: Created
+ *         content:
+ *           application/json:
+ *             schema:
+ *                $ref: '#/components/schemas/User'
+ *       "400":
+ *         $ref: '#/components/responses/DuplicateEmail'
+ *       "401":
+ *         $ref: '#/components/responses/Unauthorized'
+ *       "403":
+ *         $ref: '#/components/responses/Forbidden'
+ */
