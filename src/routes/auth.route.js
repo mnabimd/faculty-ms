@@ -173,45 +173,55 @@ module.exports = router;
  *         $ref: '#/components/responses/Unauthorized'
  */
 
-// /**
-//  * @swagger
-//  * /auth/reset-password:
-//  *   post:
-//  *     summary: Reset password
-//  *     tags: [Auth]
-//  *     parameters:
-//  *       - in: query
-//  *         name: token
-//  *         required: true
-//  *         schema:
-//  *           type: string
-//  *         description: The reset password token
-//  *     requestBody:
-//  *       required: true
-//  *       content:
-//  *         application/json:
-//  *           schema:
-//  *             type: object
-//  *             required:
-//  *               - password
-//  *             properties:
-//  *               password:
-//  *                 type: string
-//  *                 format: password
-//  *                 minLength: 8
-//  *                 description: At least one number and one letter
-//  *             example:
-//  *               password: password1
-//  *     responses:
-//  *       "204":
-//  *         description: No content
-//  *       "401":
-//  *         description: Password reset failed
-//  *         content:
-//  *           application/json:
-//  *             schema:
-//  *               $ref: '#/components/schemas/Error'
-//  *             example:
-//  *               code: 401
-//  *               message: Password reset failed
-//  */
+/**
+ * @swagger
+ * /auth/change-password:
+ *   patch:
+ *     summary: Change your current password to a new one
+ *     description: Only logged in user can change their password
+ *     tags: [Auth]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - oldPassword
+ *               - newPassword
+ *               - newPasswordConfirm
+ *             properties:
+ *               oldPassword:
+ *                 type: string
+ *                 format: password
+ *                 minLength: 8
+ *                 description: At least one number and one letter
+ *               newPassword:
+ *                 type: string
+ *                 format: password
+ *                 minLength: 8
+ *                 description: At least one number and one letter
+ *               newPasswordConfirm:
+ *                 type: string
+ *                 format: password
+ *                 minLength: 8
+ *                 description: At least one number and one letter
+ *             example:
+ *               oldPassword: password1
+ *               newPassword: password2
+ *               newPasswordConfirm: password2
+ *     responses:
+ *       "200":
+ *         description: Created
+ *         content:
+ *           application/json:
+ *             schema:
+ *                $ref: '#/components/schemas/User'
+ *       "401":
+ *         $ref: '#/components/responses/Unauthorized'
+ *       "403":
+ *         $ref: '#/components/responses/Forbidden'
+ *
+ */
