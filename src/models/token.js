@@ -17,13 +17,13 @@ module.exports = (sequelize, DataTypes) => {
     {
       id: {
         allowNull: false,
+        autoIncrement: true,
         primaryKey: true,
-        type: DataTypes.UUID,
-        defaultValue: DataTypes.UUIDV1,
+        type: DataTypes.INTEGER,
       },
       token: DataTypes.STRING,
       user: {
-        type: DataTypes.UUID,
+        type: DataTypes.INTEGER,
         required: true,
         references: {
           model: 'Users',
