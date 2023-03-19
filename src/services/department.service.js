@@ -16,6 +16,11 @@ const createDepartment = async (userBody) => {
   return Department.create(userBody);
 };
 
+// Update department
+
+// Get departments
+
+// Delete a department
 module.exports = {
   createDepartment,
 };
