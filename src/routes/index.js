@@ -40,6 +40,9 @@ if (config.env === 'development' || true) {
   devRoutes.forEach((route) => {
     router.use(route.path, route.route);
   });
+
+  // Default homepage route
+  router.get('/', (req, res) => res.redirect('/docs'));
 }
 
 module.exports = router;
